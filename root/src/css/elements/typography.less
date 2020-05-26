@@ -1,0 +1,86 @@
+// Type hierarchy
+body {
+  color: @dark-gray;
+  font-family: @serif;
+  font-size: @font-root;
+  font-style: normal;
+  font-weight: @regular;
+  line-height: 150%;
+  @media screen and (max-width: map-get(@grid-breakpoints, md)) {
+    font-size: @font-root-mobile;
+  }
+}
+
+.header-font() {
+  // .antialiasing();
+  margin: 0 0 @size-md 0;
+  font-family: @sans;
+  font-weight: @bold;
+  line-height: 100%;
+}
+
+.h1() {
+  .header-font();
+  font-size: @size-xxxl;
+}
+
+h1 {
+  .h1();
+}
+
+.h2() {
+  .header-font();
+  font-size: @size-xxl;
+}
+
+h2 {
+  .h2();
+}
+
+.h3() {
+  .header-font();
+  font-size: @size-xl;
+}
+
+h3 {
+  .h3();
+}
+
+.h4() {
+  .header-font();
+  font-size: @size-lg;
+}
+
+h4 {
+  .h4();
+}
+
+.h5() {
+  .header-font();
+  font-size:@size-md;
+}
+
+h5 {
+  .h5();
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+
+  p & {
+    .link-highlight();
+  }
+
+}
+
+p, ol, ul {
+  margin: 0 0 @size-md 0;
+  &:last-child {
+    margin: auto;
+  }
+}
+
+li {
+  margin-bottom: @size-xs;
+}

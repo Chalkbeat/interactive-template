@@ -1,0 +1,131 @@
+.footer-menu.nav {
+  font-family: @sans;
+  font-size: @size-md;
+  display: block;
+  padding: 0;
+  margin: 0 0 0 @size-xxl;
+  #media-breakpoint-down(md, {
+    margin: 0;
+  });
+}
+
+.nav-item {
+  display: block;
+  margin-top: @size-sm;
+}
+
+.nav-link {
+  .antialiasing();
+  padding: 0;
+  line-height: 100%;
+  color: @teal;
+  &:hover {
+    color: @light-teal;
+  }
+}
+
+.nav-link.child {
+  display: block;
+  margin: @size-xs 0;
+  color: @white;
+  #media-breakpoint-down(md, {
+    display: none;
+  });
+}
+
+.sub-menu {
+  padding: 0;
+  font-family: @serif;
+  font-size: @size-base;
+  .nav-link {
+    margin-top: @size-xs;
+  }
+}
+
+.desktop .header-top-menu .nav-item {
+  margin-right: @size-sm;
+  padding: @size-xs 0;
+}
+
+.social-menu {
+  .button {
+    margin: 0 @size-xs;
+  }
+}
+
+.site-footer {
+  width: 100%;
+  margin: @size-xxl 0 0 0;
+  padding: @size-xxl @size-xxl;
+  background-color: @dark-gray;
+  background: url('./assets/chalkboard.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: @white;
+
+  #media-breakpoint-down(md, {
+    text-align: center;
+  });
+
+  .branding-description {
+    width: auto;
+    text-align: left;
+    margin-top: 0;
+    margin-bottom: @size-md;
+    color: @white;
+    font-size: @size-sm;
+    font-style: italic;
+
+    #media-breakpoint-down(md, {
+      width: 100%;
+      text-align: center;
+    });
+
+  }
+
+  .site-logo {
+    #media-breakpoint-up(md, {
+      width: 248px;
+    });
+    #media-breakpoint-down(md, {
+      margin: auto;
+    });
+  }
+
+  .social-menu {
+    margin-top: @size-sm;
+
+    svg {
+      path {
+        fill: @white;
+      }
+    }
+
+    a:hover {
+      svg {
+        path {
+          fill: @light-teal;
+        }
+      }
+    }
+
+  }
+
+  .social-wrapper * {
+    display: inline-block;
+  }
+
+  .social-wrapper p {
+    margin: 0;
+    font-style: italic;
+    line-height: 100%;
+    vertical-align: text-top;
+  }
+
+  .footer-menu-wrapper {
+    #media-breakpoint-down(md, {
+      display: block !important;
+    });
+  }
+
+}
