@@ -120,8 +120,10 @@ module.exports = function(grunt) {
           }
         }
         var filename = `data/${sheet.properties.title.replace(/\s+/g, "_")}.sheet.json`;
-        console.log(`Saving sheet to ${filename}`);
+        var filename_2 = `src/js/data/${sheet.properties.title.replace(/\s+/g, "_")}.sheet.json`;
+        console.log(`Saving sheet to ${filename} and ${filename_2}`);
         grunt.file.write(filename, JSON.stringify(out, null, 2));
+        grunt.file.write(filename_2, JSON.stringify(out, null, 2));
       });
 
       await Promise.all(sheetRequests);
