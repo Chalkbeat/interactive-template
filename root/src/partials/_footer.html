@@ -1,14 +1,142 @@
-<footer role="contentinfo">
-  <div class="constrained">
-    <%= typeof content != "undefined" ? content : "" %>
-    <div class="npr">
-      <ul>
-        <li><a href="https://www.npr.org/about-npr/179876898/terms-of-use" target="_blank">Terms of Use</a></li>
-        <li><a href="https://www.npr.org/about-npr/179878450/privacy-policy" target="_blank">Privacy</a></li>
-        <li><a href="https://www.npr.org/about-npr/179878450/privacy-policy#yourchoices" target="_blank">Your Privacy Choices</a></li>
-        <li><a href="https://text.npr.org/" target="_blank">Text Only</a></li>
-        <li>&copy; 2019 NPR</li>
-      </ul>
+<footer class="site-footer" data-scroll='{ "ga_category" : "Navigation", "ga_action" : "Footer", "ga_label" : "Footer" }'>
+
+  <div class="main-footer-container">
+
+    <div class="row">
+
+      <div class="col-lg-4 d-flex flex-column justify-content-between">
+
+        <div class="branding">
+          <div class="site-logo site-title">
+            <a href="https://chalkbeat.org" onclick="ga('chalkbeatRollup.send', 'event', 'Navigation', 'Logo', 'Masthead | Clicked');"><%= t.include("assets/Cb-Logo-2Color-V1.svg") %></a>
+          </div>
+          <p class="branding-description">Essential education reporting across America</p>
+        </div>
+
+        <div class="navbar">
+          <div class="d-lg-flex">
+            <a class="button button-background-purple button-text button-icon-rotate d-inline-flex" href="/about/newsletters" title="Newsletters" onclick="ga('chalkbeatRollup.send', 'event', 'Navigation', 'Newsletters', 'Footer | Clicked');">
+              <svg width="25" height="20" viewBox="0 0 25 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M22.5219 0.229004H3.32188C2.00188 0.229004 0.933875 1.309 0.933875 2.629L0.921875 17.029C0.921875 18.349 2.00188 19.429 3.32188 19.429H22.5219C23.8419 19.429 24.9219 18.349 24.9219 17.029V2.629C24.9219 1.309 23.8419 0.229004 22.5219 0.229004ZM21.3219 17.029H4.52188C3.86188 17.029 3.32188 16.489 3.32188 15.829V5.029L11.6499 10.237C12.4299 10.729 13.4139 10.729 14.1939 10.237L22.5219 5.029V15.829C22.5219 16.489 21.9819 17.029 21.3219 17.029ZM12.9219 8.629L3.32188 2.629H22.5219L12.9219 8.629Z"
+                  fill="white" />
+              </svg>
+              <div>Newsletters</div>
+            </a>
+            <a class="button button-background-yellow button-text button-icon-rotate d-inline-flex" href="/donate-to-chalkbeat" title="Donate">
+              <svg width="24" height="22" viewBox="0 0 24 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M21.1888 1.9874C18.022 -0.171769 14.1115 0.835843 12.0003 3.30689C9.88914 0.835843 5.97864 -0.183765 2.81186 1.9874C1.13251 3.13896 0.0769138 5.08221 0.00494147 7.13342C-0.162994 11.7876 3.96342 15.5182 10.261 21.24L10.381 21.348C11.2926 22.1756 12.6961 22.1756 13.6077 21.336L13.7397 21.216C20.0372 15.5062 24.1517 11.7756 23.9957 7.12143C23.9237 5.08221 22.8681 3.13896 21.1888 1.9874V1.9874ZM12.1203 19.4527L12.0003 19.5726L11.8804 19.4527C6.17057 14.2827 2.40402 10.864 2.40402 7.39732C2.40402 4.99824 4.20333 3.19893 6.6024 3.19893C8.44969 3.19893 10.249 4.38648 10.8848 6.02985H13.1279C13.7517 4.38648 15.551 3.19893 17.3983 3.19893C19.7973 3.19893 21.5966 4.99824 21.5966 7.39732C21.5966 10.864 17.8301 14.2827 12.1203 19.4527Z"
+                  fill="white" />
+              </svg>
+              Donate
+            </a>
+          </div>
+
+          <div class="social-wrapper">
+
+            <p>Follow us: </p>
+
+
+            <nav class="social-menu d-inline-flex">
+
+              <a class="button button-background-none" href="https://twitter.com/chalkbeat" title="Twitter Page" alt="Twitter" target="_blank">
+                <svg viewBox="0 0 25 20" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M8.04752 19.7505C17.1042 19.7505 22.0578 12.2472 22.0578 5.74027C22.0578 5.52715 22.0578 5.315 22.0434 5.1038C23.007 4.40675 23.8389 3.54368 24.5 2.555C23.6013 2.95321 22.648 3.21435 21.6718 3.32972C22.6998 2.71434 23.4691 1.74646 23.8366 0.606196C22.8701 1.17975 21.8126 1.58397 20.7099 1.8014C19.9675 1.01197 18.9856 0.489237 17.9162 0.31408C16.8468 0.138923 15.7494 0.321111 14.794 0.832449C13.8385 1.34379 13.0782 2.15577 12.6307 3.14274C12.1833 4.12972 12.0735 5.23666 12.3186 6.29227C10.3609 6.19413 8.44572 5.68539 6.69741 4.79908C4.9491 3.91277 3.40672 2.6687 2.1704 1.14764C1.54073 2.23163 1.34787 3.51486 1.6311 4.73606C1.91433 5.95725 2.65234 7.02459 3.69488 7.72076C2.91127 7.69753 2.14475 7.48614 1.46 7.10444C1.46 7.1246 1.46 7.14571 1.46 7.16683C1.46031 8.30368 1.85385 9.40543 2.57387 10.2852C3.29389 11.165 4.29606 11.7686 5.4104 11.9937C4.68547 12.1914 3.92488 12.2203 3.18704 12.0782C3.50169 13.0566 4.11427 13.9122 4.93911 14.5253C5.76395 15.1384 6.75979 15.4784 7.78736 15.4977C6.04375 16.868 3.88982 17.6119 1.67216 17.6097C1.28039 17.609 0.888996 17.5852 0.5 17.5387C2.75181 18.9837 5.37192 19.7502 8.04752 19.7467"
+                    fill="white" />
+                </svg>
+              </a>
+
+              <a class="button button-background-none" href="https://facebook.com/chalkbeat" title="Facebook Page" alt="Facebook" target="_blank">
+                <svg viewBox="0 0 12 24" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M4.09049 1.23636C5.02638 0.345218 6.35756 0.0442284 7.61331 0.00671382C8.9414 -0.00522792 10.269 0.00199546 11.5971 0.00251973C11.6023 1.40355 11.6028 2.8051 11.5965 4.20607C10.7383 4.20456 9.87938 4.20817 9.02109 4.20456C8.47684 4.17065 7.91797 4.58319 7.81905 5.12273C7.80601 6.06018 7.81434 6.99816 7.81486 7.93568C9.07369 7.94086 10.3325 7.9341 11.5913 7.93882C11.4991 9.295 11.3309 10.645 11.1336 11.9898C10.0216 12.0002 8.90907 11.9887 7.79721 11.9955C7.78731 15.9954 7.80239 19.9953 7.7894 23.9952C6.13783 24.002 4.48527 23.9921 2.83376 23.9999C2.80248 19.9995 2.83632 15.997 2.81657 11.996C2.01083 11.9877 1.20461 12.0018 0.398926 11.9893C0.402013 10.6445 0.399973 9.29983 0.40044 7.95554C1.2056 7.9457 2.01135 7.95764 2.81657 7.94983C2.84104 6.64253 2.79205 5.33372 2.84209 4.02753C2.92283 2.99308 3.31708 1.95089 4.09049 1.23636Z"
+                    fill="white" />
+                </svg>
+              </a>
+
+
+              <a class="button button-background-none" href="https://chalkbeat.org/feed" title="RSS Feeds" alt="RSS">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M2.81506 20.0002C4.36977 20.0002 5.63012 18.7399 5.63012 17.1852C5.63012 15.6305 4.36977 14.3701 2.81506 14.3701C1.26034 14.3701 0 15.6305 0 17.1852C0 18.7399 1.26034 20.0002 2.81506 20.0002Z" fill="#393939" />
+                  <path d="M2.05318 7.38387C0.968483 7.20309 0 8.09409 0 9.19171C0 10.1085 0.684395 10.8446 1.58831 10.9995C5.35894 11.6581 8.32895 14.641 9.00044 18.4117C9.15539 19.3156 9.89144 20 10.8083 20C11.9059 20 12.7969 19.0315 12.629 17.9468C11.7509 12.5233 7.47669 8.24905 2.05318 7.38387V7.38387ZM2.01444 0.0104887C0.942657 -0.105729 0 0.759449 0 1.83124C0 2.77389 0.710221 3.54868 1.63996 3.63907C9.40074 4.41386 15.5732 10.5863 16.348 18.3471C16.4384 19.2898 17.2132 20 18.1558 20C19.2405 20 20.0928 19.0573 19.9895 17.9855C19.0468 8.50731 11.5056 0.953146 2.01444 0.0104887V0.0104887Z"
+                    fill="#393939" />
+                </svg>
+              </a>
+
+            </nav>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="col-lg-8">
+
+        <nav class="footer-menu-wrapper d-flex justify-content-end">
+
+          <ul class="nav footer-menu left-menu">
+            <!-- <li class="nav-item">
+              <a href="https://chalkbeat.org/events" class="nav-link">Events</a>
+            </li>
+            <li class="nav-item">
+              <a href="https://jobs.chalkbeat.org" class="nav-link">Jobs Board</a>
+            </li> -->
+          </ul>
+
+          <ul class="nav footer-menu middle-menu">
+            <li class="nav-item">
+              <a href="https://chalkbeat.org/events" class="nav-link">Events</a>
+            </li>
+            <li class="nav-item">
+              <a href="https://jobs.chalkbeat.org" class="nav-link">Jobs Board</a>
+            </li>
+            <li class="nav-item  ">
+
+              <a href="https://chalkbeat.org/about/" class="nav-link  parent" onclick="ga('chalkbeatRollup.send', 'event', 'Navigation', 'Footer', 'About Chalkbeat');">About Chalkbeat</a>
+
+              <ul class="sub-menu">
+                <a href="https://chalkbeat.org/about/" class="nav-link child " onclick="ga('chalkbeatRollup.send', 'event', 'Navigation', 'Footer', 'About Us');">About Us</a>
+                <a href="https://chalkbeat.org/about/strategic-plan/" class="nav-link child " onclick="ga('chalkbeatRollup.send', 'event', 'Navigation', 'Footer', 'Strategic Plan');">Strategic Plan</a>
+                <a href="https://chalkbeat.org/about/staff/" class="nav-link child " onclick="ga('chalkbeatRollup.send', 'event', 'Navigation', 'Footer', 'Staff');">Staff</a>
+                <a href="https://chalkbeat.org/about/supporters/" class="nav-link child " onclick="ga('chalkbeatRollup.send', 'event', 'Navigation', 'Footer', 'Supporters');">Supporters</a>
+                <a href="https://chalkbeat.org/about/awards/" class="nav-link child " onclick="ga('chalkbeatRollup.send', 'event', 'Navigation', 'Footer', 'Awards');">Awards</a>
+                <a href="https://chalkbeat.org/about/careers/" class="nav-link child " onclick="ga('chalkbeatRollup.send', 'event', 'Navigation', 'Footer', 'Careers at Chalkbeat');">Careers at Chalkbeat</a>
+              </ul>
+
+            </li>
+          </ul>
+
+          <ul class="nav footer-menu right-menu">
+            <li class="nav-item  ">
+
+              <a href="https://chalkbeat.org/about/ethics/" class="nav-link  parent" onclick="ga('chalkbeatRollup.send', 'event', 'Navigation', 'Footer', 'Policies');">Policies</a>
+
+              <ul class="sub-menu">
+                <a href="https://chalkbeat.org/about/ethics/" class="nav-link child " onclick="ga('chalkbeatRollup.send', 'event', 'Navigation', 'Footer', 'Code of Ethics');">Code of Ethics</a>
+                <a href="https://chalkbeat.org/about/republishing/" class="nav-link child " onclick="ga('chalkbeatRollup.send', 'event', 'Navigation', 'Footer', 'Republishing');">Republishing</a>
+                <a href="https://chalkbeat.org/about/privacy-policy/" class="nav-link child " onclick="ga('chalkbeatRollup.send', 'event', 'Navigation', 'Footer', 'Privacy Policy');">Privacy Policy</a>
+                <a href="https://chalkbeat.org/about/terms-of-use/" class="nav-link child " onclick="ga('chalkbeatRollup.send', 'event', 'Navigation', 'Footer', 'Terms of Use');">Terms of Use</a>
+              </ul>
+
+            </li>
+            <li class="nav-item  ">
+
+              <a href="https://chalkbeat.org/contact/" class="nav-link  parent" onclick="ga('chalkbeatRollup.send', 'event', 'Navigation', 'Footer', 'Connect');">Connect</a>
+
+              <ul class="sub-menu">
+                <a href="https://chalkbeat.org/about/become-a-chalkbeat-sponsor/" class="nav-link child " onclick="ga('chalkbeatRollup.send', 'event', 'Navigation', 'Footer', 'Become a Sponsor');">Become a Sponsor</a>
+                <a href="https://chalkbeat.org/about/how-to-be-a-source/" class="nav-link child " onclick="ga('chalkbeatRollup.send', 'event', 'Navigation', 'Footer', 'How to be a Source');">How to be a Source</a>
+                <a href="https://chalkbeat.org/contact/" class="nav-link child " onclick="ga('chalkbeatRollup.send', 'event', 'Navigation', 'Footer', 'Contact Us');">Contact Us</a>
+              </ul>
+
+            </li>
+          </ul>
+
+        </nav>
+
+      </div>
+
     </div>
+
   </div>
+
 </footer>

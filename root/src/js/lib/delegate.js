@@ -1,7 +1,9 @@
+var closest = require("./closest");
+
 var delegate = function(root, event, selector, callback) {
   root.addEventListener(event, function(e) {
-    var matching = e.target.closest(selector);
-    if (matching && root.contains(matching)) {
+    var matching = closest(e.target, selector, root);
+    if (matching) {
       callback.call(matching, e);
     }
   });

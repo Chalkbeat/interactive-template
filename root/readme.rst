@@ -1,7 +1,7 @@
 {%= app_name %}
 ======================================================
 
-This news app is built on our `interactive template <https://github.com/nprapps/interactive-template>`_. Check the readme for that template for more details about the structure and mechanics of the app, as well as how to start your own project.
+This news app is built on our `interactive template <https://github.com/chalkbeat/interactive-template>`_. Check the readme for that template for more details about the structure and mechanics of the app, as well as how to start your own project.
 
 Getting started
 ---------------
@@ -14,7 +14,7 @@ To run this project you will need:
 
 With those installed, you can then set the project up using your terminal:
 
-#. Pull the code - ``git clone git@github.com:nprapps/{%= app_name %}``
+#. Pull the code - ``git clone git@github.com:chalkbeat/{%= app_name %}``
 #. Enter the project folder - ``cd {%= app_name %}``
 #. Install dependencies from NPM - ``npm install``
 #. Start the server - ``grunt``

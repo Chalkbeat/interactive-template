@@ -1,0 +1,197 @@
+.button {
+  .round-edges();
+  .antialiasing();
+  -webkit-transition: background-position @transition-time;
+  -moz-transition: background-position @transition-time;
+  width: auto;
+  min-width: @size-xl;
+  padding: @size-xs;
+  border: none;
+  color: @white;
+  font-family: @sans;
+  font-size: @size-md;
+  line-height: 90%;
+  transition: transform @transition-time;
+  margin-left: @size-xs;
+  background-color: @dark-gray;
+  text-align: center;
+
+  &:first-child {
+    margin-left: 0;
+  }
+
+  a {
+    color: @white;
+  }
+
+  &:hover {
+    cursor: pointer;
+    background-color: @gray;
+  }
+
+  svg {
+    width: @size-md;
+    height: @size-md;
+    margin: auto;
+  }
+
+  path {
+    fill: @white;
+  }
+
+}
+
+.button-icon-rotate {
+  &:hover {
+    svg {
+      transform: rotate(-10deg);
+    }
+  }
+}
+
+.button-background-light-teal {
+  background-color: @light-teal;
+  color: @dark-teal;
+  &:hover {
+    background-color: @teal;
+    color: @white;
+  }
+}
+
+.button-background-teal {
+  background-color: @teal;
+  &:hover {
+    background-color: @dark-teal;
+  }
+}
+
+.button-background-blue {
+  background-color: @blue;
+  &:hover {
+    background-color: @dark-blue;
+  }
+}
+
+.button-background-purple {
+  background-color: @purple;
+  &:hover {
+    background-color: @dark-purple;
+  }
+}
+
+.button-background-yellow {
+  background-color: @yellow;
+  color: @dark-gray;
+  &:hover {
+    background-color: @light-yellow;
+  }
+  path {
+    fill: @dark-gray;
+  }
+}
+
+.button-background-light-gray {
+  background-color: @light-gray;
+  color: @dark-gray;
+  path {
+    fill: @dark-gray;
+  }
+  &:hover {
+    background-color: @light-teal;
+  }
+}
+
+.button-background-gray {
+  background-color: @gray;
+  &:hover {
+    background-color: @dark-gray;
+  }
+}
+
+.button-background-dark-gray {
+  background-color: @dark-gray;
+  &:hover {
+    background-color: @dark-teal;
+  }
+}
+
+.button-background-dark-teal {
+  background-color: @dark-teal;
+  &:hover {
+    background-color: @teal;
+  }
+}
+
+.button-background-white {
+  background-color: @white;
+  color: @dark-teal;
+  &:hover {
+    background-color: @teal;
+    color: @white;
+  }
+}
+
+
+.button-background-none {
+  min-width: 0;
+  padding: 0;
+  background: none;
+
+  &:hover {
+    background: none;
+  }
+
+  svg {
+    width: auto;
+  }
+
+  path {
+    fill: @dark-gray;
+  }
+
+}
+
+.button-text {
+  white-space: nowrap;
+  svg {
+    margin-right: @size-xs;
+  }
+}
+
+.button-text-left {
+  white-space: nowrap;
+  svg {
+    margin-left: @size-xs;
+  }
+}
+
+.button-small {
+  display: inline-block;
+  padding: @size-xs;
+  margin-left: @size-xxs;
+  font-size: @size-base;
+  text-transform: uppercase;
+}
+
+.button-full {
+  display: block;
+  padding: @size-sm @size-sm;
+  margin-bottom: @size-base;
+  margin-left: 0;
+
+  &.button-text-left {
+
+    svg {
+      float:right;
+    }
+  }
+}
+
+// New styles
+.button {
+  a {
+    border-bottom: none;
+    font-style: normal;
+    text-transform: capitalize;
+  }
+}
