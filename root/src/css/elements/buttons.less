@@ -5,11 +5,11 @@
   -moz-transition: background-position @transition-time;
   width: auto;
   min-width: @size-xl;
-  padding: @size-xs;
+  padding: @size-sm;
   border: none;
   color: @white;
   font-family: @sans;
-  font-size: @size-md;
+  font-size: 19px;
   line-height: 90%;
   transition: transform @transition-time;
   margin-left: @size-xs;
@@ -30,8 +30,8 @@
   }
 
   svg {
-    width: @size-md;
-    height: @size-md;
+    width: @size-base;
+    height: @size-base;
     margin: auto;
   }
 
@@ -73,9 +73,13 @@
 }
 
 .button-background-purple {
-  background-color: @purple;
+  background-color: #cb90d0;
+  color: @dark-gray;
   &:hover {
-    background-color: @dark-purple;
+    background-color: @light-purple;
+  }
+  path {
+    fill: @dark-gray;
   }
 }
 
