@@ -56,8 +56,8 @@
 .site-footer {
   width: 100%;
   margin: @size-xxl 0 0 0;
-  padding: @size-xxl @size-xxl;
-  background-color: @dark-gray;
+  padding: @size-xxl @size-md;
+  background-color: @darker-gray;
   color: @white;
 
   #media-breakpoint-down(md, {
@@ -69,7 +69,7 @@
     text-align: left;
     margin-top: 0;
     margin-bottom: @size-md;
-    color: @white;
+    color: @light-teal;
     font-size: @size-sm;
     font-style: italic;
 
@@ -82,7 +82,7 @@
 
   .site-logo {
     #media-breakpoint-up(md, {
-      width: 248px;
+      width: 200px;
     });
     #media-breakpoint-down(md, {
       margin: auto;
@@ -115,6 +115,7 @@
   .social-wrapper p {
     margin: 0;
     font-style: italic;
+    font-size: @size-sm;
     line-height: 100%;
     vertical-align: text-top;
   }
