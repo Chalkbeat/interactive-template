@@ -1,42 +1,45 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
-<title><%= project.title %> : NPR</title>
+<title><%= project.title %></title>
 
 <!-- Favicon -->
-<link rel="apple-touch-icon" sizes="180x180" href="https://media.npr.org/templates/favicon/favicon-180x180.png" />
-<link rel="icon" sizes="96x96" href="https://media.npr.org/templates/favicon/favicon-96x96.png" />
-<link rel="icon" sizes="32x32" href="https://media.npr.org/templates/favicon/favicon-32x32.png" />
-<link rel="icon" sizes="16x16" href="https://media.npr.org/templates/favicon/favicon-16x16.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="https://s3.amazonaws.com/chalkbeatgraphics/templates/favicon.png" />
+<link rel="icon" sizes="96x96" href="https://s3.amazonaws.com/chalkbeatgraphics/templates/favicon.png" />
+<link rel="icon" sizes="32x32" href="https://s3.amazonaws.com/chalkbeatgraphics/templates/favicon.png" />
+<link rel="icon" sizes="16x16" href="https://s3.amazonaws.com/chalkbeatgraphics/templates/favicon.png" />
 
 <!-- Safari, you're the worst -->
 <meta name='format-detection' content='telephone=no'>
 
-<% if (!project.embedded) { %>
-<!-- GDPR compliance -->
-<script src="https://apps.npr.org/gdpr/gdprCompliance.js" async defer></script>
-
 <!-- BEGIN TWITTER SUMMARY CARD -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="<%= project.title %>">
-<meta name="twitter:site" content="@nprviz">
-<meta name="twitter:url" content="<%= project.url %>">
-<meta name="twitter:image" content="<%= project.url + project.image %>">
+<meta name="twitter:site" content="@Chalkbeat">
+<meta name="twitter:url" content="<%= project.url + '/index.html' %>">
+<meta name="twitter:image" content="<%= 'http://' + project.url + project.image %>">
 <meta name="twitter:description" content="<%= project.description %>">
 
 <!-- Social sharing meta -->
 <meta property="og:type" content="article">
 <meta property="og:title" content="<%= project.title %>">
-<meta property="og:site_name" content="NPR Visuals">
-<meta property="og:url" content="<%= project.url %>">
-<meta property="og:image" content="<%= project.url + project.image %>">
+<meta property="og:site_name" content="Chalkbeat">
+<meta property="og:url" content="<%= project.url + '/index.html' %>">
+<meta property="og:image" content="<%= 'http://' + project.url + project.image %>">
 <meta property="og:description" content="<%= project.description %>">
 
 <!-- Facebook-specific meta -->
-<meta property="fb:app_id" content="138837436154588">
+<!-- <meta property="fb:app_id" content="138837436154588">
 <meta property="article:opinion" content="false">
-<meta property="article:content_tier" content="free">
-<meta property="fb:pages" content="10643211755">
+<meta property="article:content_tier" content="free"> -->
+<meta property="fb:pages" content="45830815529">
+<meta property="fb:pages" content="551301675026056">
+<meta property="fb:pages" content="625907340786335">
+<meta property="fb:pages" content="82599518413">
+<meta property="fb:pages" content="353374664814502">
+<meta property="fb:pages" content="179861732220822">
+<meta property="fb:pages" content="542316826125535">
+<meta property="fb:pages" content="200155530540779">
 
 <!-- Google structured data -->
 <script type="application/ld+json">
@@ -54,11 +57,11 @@
   },
   "author": {
     "@type": "Person",
-    "name": "NPR Staff"
+    "name": "Chalkbeat Staff"
   },
   "publisher": {
     "@type": "Organization",
-    "name": "NPR",
+    "name": "Chalkbeat",
     "logo": {
       "@type": "ImageObject",
       "url": "<%= project.url %>assets/logo.png",
@@ -72,11 +75,8 @@
 </script>
 
 <!-- Chartbeat top -->
-<script type="text/javascript">var _sf_startpt=(new Date()).getTime()</script>
+<!-- <script type="text/javascript">var _sf_startpt=(new Date()).getTime()</script> -->
 
-<%
-// if !project.embedded...
-} 
-%>
 
+<%= t.include("partials/_analytics.html") %>
 <%= t.include("partials/_webfonts.html") %>
