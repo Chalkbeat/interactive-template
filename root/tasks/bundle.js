@@ -4,7 +4,7 @@ Build a bundled app.js file using browserify
 module.exports = function(grunt) {
 
   var async = require("async");
-  var babel = require("babelify");
+  // var babel = require("babelify");
   var browserify = require("browserify");
   var exorcist = require("exorcist");
   var fs = require("fs");
