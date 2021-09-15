@@ -27,16 +27,12 @@
     "grunt-contrib-connect": "^2.0.0",
     "grunt-contrib-watch": "^1.0.0",
     "less": "^3.9.0",
-    "markdown-it": "^10.0.0",
     "mime": "^2.4.2",
     "opn": "^5.4.0",
     "resolve": "^1.1.7",
     "shelljs": "^0.8.3",
     "through2": "^3.0.1",
-    "typogr": "^0.6.4",
-    "vue": "^2.6.11",
-    "vue-router": "^3.1.5",
-    "vueify": "^9.4.1"
+    "typogr": "^0.6.4"
   },
   "browserify": {
     "transform": [
