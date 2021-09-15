@@ -82,8 +82,7 @@ module.exports = function(grunt) {
 
           text = text.replace(/\x0b/g, "\n");
 
-          console.log(`Writing document as data/${name} and src/js/data/${name}`);
-          grunt.file.write(path.join("src/js/data", name), text);
+          console.log(`Writing document as data/${name}`);
           grunt.file.write(path.join("data", name), text);
         },
         function(err) {
