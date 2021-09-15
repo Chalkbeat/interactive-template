@@ -4,7 +4,7 @@ Build a bundled app.js file using browserify
 module.exports = function(grunt) {
 
   var async = require("async");
-  // var babel = require("babelify");
+  var babel = require("babelify");
   var browserify = require("browserify");
   var exorcist = require("exorcist");
   var fs = require("fs");
@@ -20,15 +20,14 @@ module.exports = function(grunt) {
 
     async.forEachOf(seeds, function(dest, src, c) {
       var b = browserify({ debug: mode == "dev" });
-      // b.plugin(require("browser-pack-flat/plugin"));
-      // b.transform("babelify", { global: true, presets: [
-      //   ["@babel/preset-env", {
-      //     targets: { browsers: ["safari >= 11"]},
-      //     loose: true,
-      //     modules: false
-      //   }]
-      // ]});
-      b.transform("vueify");
+      b.plugin(require("browser-pack-flat/plugin"));
+      b.transform("babelify", { global: true, presets: [
+        ["@babel/preset-env", {
+          targets: { browsers: ["safari >= 11"]},
+          loose: true,
+          modules: false
+        }]
+      ]});
 
       //make sure build/ exists
       grunt.file.mkdir("build");
