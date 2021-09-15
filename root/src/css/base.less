@@ -1,4 +1,44 @@
-@import "values";
+// Primary colors
+@darker-gray: #222222;
+@dark-gray: #393939;
+@teal: #178287;
+
+@primary-color: @teal;
+
+// Secondary colors
+@yellow: #F4C96C;
+@blue: #268CBA;
+@peach: #F79C75;
+@purple: #BD75AC;
+
+// Extended colors
+@lighter-gray: #ECECEC;
+@light-gray: #DCDCDC;
+@gray: #828282;
+
+@light-teal: #9CD1D4;
+@dark-teal: #127479;
+
+@light-yellow: #F0DFBC;
+@dark-yellow: #AC8E4C;
+
+@light-peach: #F1CEBF;
+@dark-peach: #AE6E52;
+
+@light-purple: #DBC0D4;
+@dark-purple: #855279;
+
+@light-blue: #A1C8DA;
+@dark-blue: #1B6383;
+
+// Font stacks
+@sans: "Barlow Condensed", Helvetica, Arial, sans-serif;
+@serif: "IBM Plex Serif", Times, serif;
+
+// Font root sizes
+@font-root: 18px;
+@font-root-tablet: 18px;
+@font-root-mobile: 16px;
 
 //defensive coding
 * {
@@ -18,9 +58,10 @@ body {
   margin: 0;
   //remove 300ms click delay in Safari, AKA still the worst
   touch-action: manipulation;
-  font-family: @sans;
+  font-family: @serif;
   font-size: 14px;
   line-height: 1.4;
+  color: @dark-gray;
 }
 
 img, svg {
@@ -28,17 +69,17 @@ img, svg {
 }
 
 h1 {
-  .gotham();
   font-size: 20px;
-  color: #666;
+  font-family: @sans;
 }
 
 a, a:visited {
-  color: @accent-dark;
+  color: inherit;
 }
 
 a:hover, a:active, a:focus {
-  color: @accent-light;
+  color: teal;
+  border-bottom: none;
 }
 
 img:not([alt]) {
