@@ -1,5 +1,3 @@
-var raf = window[require("./prefixed").requestAnimationFrame];
-
 var animating = false;
 
 var noop = function() {};
@@ -26,7 +24,7 @@ module.exports = function(element, duration = 500, done = noop) {
       animating = false;
       return done();
     }
-    raf(frame);
+    requestAnimationFrame(frame);
   };
 
   animating = true;
