@@ -40,6 +40,10 @@
 @font-root-tablet: 18px;
 @font-root-mobile: 16px;
 
+// Media queries
+@mobile: ~"(max-width: 600px)";
+@tablet: ~"(max-width: 1100px)";
+
 //defensive coding
 * {
   //border-box, you're the best
@@ -62,6 +66,13 @@ body {
   font-size: 14px;
   line-height: 1.4;
   color: @dark-gray;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+  main {
+    flex: 1;
+  }
 }
 
 img, svg {
@@ -88,5 +99,92 @@ img:not([alt]) {
   [aria-hidden] &,
   [role="img"] & {
     outline: none;
+  }
+}
+
+/* Chalkbeat header */
+
+header.chalkbeat {
+  background: black;
+  color: white;
+
+  .cb__justified {
+    padding: 16px;
+    display: flex;
+    margin: auto;
+    max-width: 1100px;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .cb__logo {
+    max-height: 60px;
+
+    @media @mobile {
+      max-width: 120px;
+    }
+  }
+
+  .cb__buttons {
+    a {
+      display: inline-block;
+      padding: 10px 16px;
+      color: @darker-gray;
+      text-decoration: none;
+      background: @teal;
+      font-family: @sans;
+      font-size: 19px;
+      font-weight: bold;
+
+      @media @mobile {
+        padding: 8px;
+        font-size: 14px;
+      }
+    }
+
+    svg {
+      height: 2ch;
+      vertical-align: baseline;
+      display: inline-block;
+    }
+
+    .cb__newsletters {
+      background: @purple;
+      margin-right: 8px;
+    }
+
+    .cb__donate {
+      background: @yellow;
+    }
+  }
+}
+
+/* Chalkbeat footer */
+
+footer.chalkbeat {
+  background: black;
+  color: white;
+
+  .cb__justified {
+    max-width: 1100px;
+    margin: auto;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    @media @mobile {
+      display: block;
+      text-align: center;
+    }
+  }
+
+  .cb__logo {
+    max-width: 120px;
+    margin-right: 20px;
+  }
+
+  .cb__links {
+
   }
 }
