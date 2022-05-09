@@ -35,11 +35,6 @@
 @sans: "Barlow Condensed", Helvetica, Arial, sans-serif;
 @serif: "IBM Plex Serif", Times, serif;
 
-// Font root sizes
-@font-root: 18px;
-@font-root-tablet: 18px;
-@font-root-mobile: 16px;
-
 // Media queries
 @mobile: ~"(max-width: 600px)";
 @tablet: ~"(max-width: 1100px)";
@@ -63,7 +58,7 @@ body {
   //remove 300ms click delay in Safari, AKA still the worst
   touch-action: manipulation;
   font-family: @serif;
-  font-size: 14px;
+  font-size: 18px;
   line-height: 1.4;
   color: @dark-gray;
   display: flex;
@@ -80,16 +75,30 @@ img, svg {
 }
 
 h1 {
-  font-size: 20px;
+  font-size: 44px;
   font-family: @sans;
+
+  @media @mobile {
+    font-size: 34px;
+  }
+}
+
+h2 {
+  font-size: 30px;
+  font-family: @sans;
+  font-weight: normal;
+
+  @media @mobile {
+    font-size: 24px;
+  }
 }
 
 a, a:visited {
-  color: inherit;
+  color: @teal;
 }
 
 a:hover, a:active, a:focus {
-  color: teal;
+  color: @teal;
   border-bottom: none;
 }
 
@@ -185,6 +194,10 @@ footer.chalkbeat {
   }
 
   .cb__links {
+    font-size: 14px;
 
+    a {
+      margin: 0 1em;
+    }
   }
 }

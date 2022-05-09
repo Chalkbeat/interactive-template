@@ -6,11 +6,7 @@ Run the LESS compiler against seed.less and output to style.css.
 
 module.exports = function(grunt) {
 
-  var async = require("async");
   var less = require("less");
-
-  var path = require("path");
-  var through = require("through2");
   var npmImporter = require("./lib/npm-less");
 
   var options = {
@@ -26,22 +22,22 @@ module.exports = function(grunt) {
 
     var seeds = config.styles;
 
-    async.forEachOf(seeds, function(dest, src, c) {
+    var render = async function() {
 
-      var seed = grunt.file.read(src);
-
-      var o = Object.assign({}, options, { filename: seed });
-
-      less.render(seed, o, function(err, result) {
-        if (err) {
-          grunt.fail.fatal(err.message + " - " + err.filename + ":" + err.line);
-        } else {
+      for (var [src, dest] of Object.entries(seeds)) {
+        var seed = grunt.file.read(src);
+        var o = Object.assign({}, options, { filename: seed });
+        try {
+          var result = await less.render(seed, o);
           grunt.file.write(dest, result.css);
+        } catch (err) {
+          grunt.fail.fatal(err.message + " - " + err.filename + ":" + err.line);
         }
-        c();
-      });
+      }
 
-    }, done)
+    };
+
+    render().then(done);
 
   });
 

@@ -13,7 +13,6 @@ var tasks = {
 
 /** end config **/
 
-var async = require("async");
 var chalk = require("chalk");
 var shell = require("shelljs");
 

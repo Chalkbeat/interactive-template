@@ -14,6 +14,7 @@ exports.template = function(grunt, init, done) {
     init.prompt("github_repo", "chalkbeat/" + here)
   ], function(err, props) {
     //add environment variables, dynamic properties
+    props.year = new Date().getFullYear();
 
     var root = init.filesToCopy(props);
     init.copyAndProcess(root, props, { noProcess: "src/assets/**" });

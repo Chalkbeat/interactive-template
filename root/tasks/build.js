@@ -64,7 +64,7 @@ module.exports = function(grunt) {
   };
 
   grunt.template.renderMarkdown = function(input) {
-    var parsed = reader.parse(input);
+    var parsed = reader.parse(typogr.typogrify(input));
 
     var walker = parsed.walker();
     //merge text nodes together
@@ -83,7 +83,7 @@ module.exports = function(grunt) {
     }
 
     var rendered = writer.render(parsed);
-    return typogr.smartypants(typogr.widont(rendered))
+    return rendered
       .replace(/&#8211;/g, "&mdash;")
       .replace(/([’']) ([”"])/g, "$1&nbsp;$2");
   };

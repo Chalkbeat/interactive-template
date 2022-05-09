@@ -3,11 +3,15 @@ Build a bundled app.js file using browserify
 */
 module.exports = function(grunt) {
 
-  var async = require("async");
-  var babel = require("babelify");
-  var browserify = require("browserify");
-  var exorcist = require("exorcist");
-  var fs = require("fs");
+  var { rollup } = require("rollup");
+  var { nodeResolve } = require("@rollup/plugin-node-resolve");
+  var commonJS = require("@rollup/plugin-commonjs");
+  var { babel }  = require("@rollup/plugin-babel");
+  var less = require("less");
+  var fs = require("fs").promises;
+  var path = require("path");
+  var npmImporter = require("./lib/npm-less");
+  var { importText, importLESS } = require("./lib/rollup-plugins");
 
   grunt.registerTask("bundle", "Build app.js using browserify", function(mode) {
     //run in dev mode unless otherwise specified
@@ -18,44 +22,61 @@ module.exports = function(grunt) {
     var config = grunt.file.readJSON("project.json");
     var seeds = config.scripts;
 
-    async.forEachOf(seeds, function(dest, src, c) {
-      var b = browserify({ debug: mode == "dev" });
-      b.plugin(require("browser-pack-flat/plugin"));
-      b.transform("babelify", { global: true, presets: [
-        ["@babel/preset-env", {
-          targets: { browsers: ["safari >= 12"]},
-          loose: true
-        }]]
-      });
+    var plugins = [
+      nodeResolve({
+        rootDir: "node_modules",
+        browser: true
+      }),
+      importText(),
+      importLESS(),
+      commonJS({
+        requireReturnsDefault: "auto"
+      }),
+      babel({
+        targets: { browsers: ["safari >= 14"]},
+        babelHelpers: "bundled",
+        presets: [
+          "@babel/preset-env",
+        ]
+      })
+    ];
 
-      //make sure build/ exists
-      grunt.file.mkdir("build");
-      var output = fs.createWriteStream(dest);
+    grunt.file.mkdir("build");
 
-      b.add(src);
-      var assembly = b.bundle();
+    var bundle = async function() {
 
-      assembly.on("error", function(err) {
-        grunt.log.errorlns(err.message);
-        done();
-      });
-      var mapFile = dest + ".map"
+      for (var [src, dest] of Object.entries(seeds)) {
 
-      if (mode == "dev") {
-        //output sourcemap
-        assembly = assembly.pipe(exorcist(mapFile, null, null, "."));
+        var rolled = await rollup({
+          input: src,
+          plugins
+        });
+
+        var { output } = await rolled.generate({
+          name: "interactive",
+          format: "umd",
+          sourcemap: true,
+          interop: "default"
+        });
+
+        var [ bundle ] = output;
+
+        var { code, map } = bundle;
+
+        // add source map reference
+        var smURL = `./${path.basename(dest)}.map`;
+        code += `\n//# sourceMappingURL=${smURL}`;
+
+        var writeCode = fs.writeFile(dest, code);
+        var writeMap = fs.writeFile(dest + ".map", map.toString());
+
+        await Promise.all([writeCode, writeMap]);
+        console.log(`Wrote ${src} -> ${dest}`);
       }
-      assembly.pipe(output).on("finish", function() {
-        if (mode != "dev") return;
 
-        //correct path separators in the sourcemap for Windows
-        var sourcemap = grunt.file.readJSON(mapFile);
-        sourcemap.sources = sourcemap.sources.map(function(s) { return s.replace(/\\/g, "/") });
-        grunt.file.write(mapFile, JSON.stringify(sourcemap, null, 2));
+    };
 
-        c();
-      });
-    }, done);
+    bundle().then(done);
 
   });
 

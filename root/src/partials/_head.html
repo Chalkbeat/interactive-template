@@ -1,7 +1,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
-<title><%= project.title %></title>
+<title><%= title %></title>
 
 <!-- Favicon -->
 <link rel="apple-touch-icon" sizes="180x180" href="https://s3.amazonaws.com/chalkbeatgraphics/templates/favicon.png" />
@@ -14,29 +14,19 @@
 
 <!-- BEGIN TWITTER SUMMARY CARD -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="<%= project.title %>">
+<meta name="twitter:title" content="<%= title %>">
 <meta name="twitter:site" content="@Chalkbeat">
-<meta name="twitter:url" content="<%= project.url + '/index.html' %>">
-<meta name="twitter:image" content="<%= 'http://' + project.url + project.image %>">
-<meta name="twitter:description" content="<%= project.description %>">
+<meta name="twitter:url" content="<%= url %>">
+<meta name="twitter:image" content="<%= url + image %>">
+<meta name="twitter:description" content="<%= description %>">
 
 <!-- Social sharing meta -->
 <meta property="og:type" content="article">
-<meta property="og:title" content="<%= project.title %>">
+<meta property="og:title" content="<%= title %>">
 <meta property="og:site_name" content="Chalkbeat">
-<meta property="og:url" content="<%= project.url + '/index.html' %>">
-<meta property="og:image" content="<%= 'http://' + project.url + project.image %>">
-<meta property="og:description" content="<%= project.description %>">
-
-<!-- Facebook-specific meta -->
-<meta property="fb:pages" content="45830815529">
-<meta property="fb:pages" content="551301675026056">
-<meta property="fb:pages" content="625907340786335">
-<meta property="fb:pages" content="82599518413">
-<meta property="fb:pages" content="353374664814502">
-<meta property="fb:pages" content="179861732220822">
-<meta property="fb:pages" content="542316826125535">
-<meta property="fb:pages" content="200155530540779">
+<meta property="og:url" content="<%= url %>">
+<meta property="og:image" content="<%= url + image %>">
+<meta property="og:description" content="<%= description %>">
 
 <!-- Google structured data -->
 <script type="application/ld+json">
@@ -45,12 +35,12 @@
   "@type": "NewsArticle",
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "<%= project.url %>"
+    "@id": "<%= url %>"
   },
-  "headline": "<%= project.title %>",
+  "headline": "<%= title %>",
   "image": {
     "@type": "ImageObject",
-    "url": "<%= project.url + project.image %>"
+    "url": "<%= url + image %>"
   },
   "author": {
     "@type": "Person",
@@ -61,12 +51,12 @@
     "name": "Chalkbeat",
     "logo": {
       "@type": "ImageObject",
-      "url": "<%= project.url %>assets/logo.png",
+      "url": "<%= url %>assets/logo.png",
       "width": 2176,
       "height": 725
     }
   },
-  "description": "<%= project.description %>",
+  "description": "<%= description %>",
   "datePublished": "<%= new Date().toISOString() %>"
 }
 </script>

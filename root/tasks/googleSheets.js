@@ -7,7 +7,6 @@ check for existing data to merge--it does a fresh pull every time.
 */
 
 var project = require("../project.json");
-var async = require("async");
 var os = require("os");
 var path = require("path");
 var { google } = require("googleapis");

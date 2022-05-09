@@ -6,7 +6,7 @@
     },
     "live": {
       "bucket": "projects.chalkbeat.org",
-      "path": "{%= app_name %}"
+      "path": "{%= year %}/{%= app_name %}"
     }
   },
   "styles": {
