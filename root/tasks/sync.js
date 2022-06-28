@@ -1,181 +1,123 @@
-/*
-Sync assets to S3, instead of checking into Git
-This is still mostly callbacks instead of async/await because of the AWS SDK
-*/
 
-module.exports = function (grunt) {
-  var async = require("async");
-  var aws = require("aws-sdk");
-  var fs = require("fs");
-  var path = require("path").posix;
-  var shell = require("shelljs");
-  var mime = require("mime");
+var path = require("path");
+var fs = require("fs").promises;
 
-  grunt.registerTask("sync", "Sync to S3 using the AWS CLI", function (
-    target = "stage"
-  ) {
-    var done = this.async();
+var s3 = require("./lib/s3");
+var project = require("../project.json");
+var mime = require("mime");
 
-    var folder = grunt.option("sync-folder") || "synced";
+module.exports = function(grunt) {
 
-    shell.mkdir("-p", `src/assets/${folder}`);
-
-    var config = require("../project.json");
-    var dest = config.s3[target];
-    var localSynced = `src/assets/${folder}`;
-    var remoteSynced = path.join(dest.path, `assets/${folder}`);
-
-    var creds = {
-      accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-      region: process.env.AWS_DEFAULT_REGION || "us-west-1"
-    };
-    if (!creds.accessKeyId) {
-      grunt.fail.fatal("Missing AWS configuration variables.");
+  var ls = async function(dir) {
+    var stats = [];
+    try {
+      var matching = grunt.file.expand({ cwd: "./src/assets/synced", filter: "isFile" }, ["**/*"]);
+      // add modification time and size
+      for (var m of matching) {
+        var s = await fs.stat(path.join(dir, m));
+        stats.push({
+          // handle Windows paths
+          file: m.replace(/\\/g, "/"),
+          size: s.size,
+          mtime: s.mtime
+        });
+      }
+    } catch (err) {
+      // on file failure, return whatever was left
+      console.log(`Failed to read some files during sync`);
+      console.error(err.message);
     }
-    aws.config.update(creds);
-    var s3 = new aws.S3();
+    
+    return stats;
+  }
 
-    var files = grunt.file.expand(
-      { cwd: localSynced, filter: "isFile" },
-      "**/*"
-    );
+  var sync = async function(config, direction) {
+    var location = path.posix.join(config.bucket, config.path);
+    var remotePath = path.posix.join(config.path, "assets/synced");
+    var localPath = "./src/assets/synced";
 
-    var local = files.map(function (f) {
-      var stat = fs.statSync(path.join(localSynced, f));
-      return {
-        file: f,
-        size: stat.size,
-        mtime: stat.mtime
-      };
-    });
+    var remoteFiles = await s3.ls(config.bucket, remotePath);
+    var localFiles = await ls(localPath);
 
-    // get remote objects and build a list of their stats
-    var listRemote = function (callback, list = [], Marker = null) {
-      s3.listObjects(
-        {
-          Bucket: dest.bucket,
-          Prefix: remoteSynced,
-          Marker
-        },
-        function (err, results) {
-          if (err) return callback(err);
-          list.push(
-            ...results.Contents.map(function (obj) {
-              return {
-                file: obj.Key.replace(new RegExp(`.*?assets/${folder}/`), ""),
-                size: obj.Size,
-                key: obj.Key,
-                mtime: obj.LastModified
-              };
-            })
-          );
-          if (results.IsTruncated) {
-            var last = list[list.length - 1];
-            getRemote(callback, list, last.key);
-          } else {
-            callback(null, list);
-          }
-        }
-      );
-    };
+    var downloads = [];
+    var uploads = [];
 
-    // compare remote and local files
-    var diff = function (remote, next) {
-      // early exit for forced push/pull
-      if (grunt.option("pull")) {
-        return next(null, [], remote);
+    // override if the push/pull flags are set
+    if (direction) {
+      if (direction = "push") {
+        uploads = localFiles;
+      } else {
+        downloads = remoteFiles;
       }
+    } else {
+      // create lists to upload/download
+      // default to all files that only exist in one place
+      downloads = remoteFiles.filter(r => localFiles.every(l => l.file != r.file));
+      uploads = localFiles.filter(l => remoteFiles.every(r => r.file != l.file));
 
-      if (grunt.option("push")) {
-        return next(null, local, []);
-      }
-
-      // compare files
-      var up = [];
-      var down = [];
-
-      // check for existing local files and their counterparts
-      local.forEach(function (localItem) {
-        var remoteItem = remote.filter((r) => r.file == localItem.file).pop();
-        if (!remoteItem) {
-          up.push(localItem);
+      // find files that are in both, and assign to one category or another
+      var common = remoteFiles.filter(r => localFiles.find(l => l.file == r.file));
+      common.forEach(function(remote) {
+        var local = localFiles.find(l => l.file == remote.file);
+        // check size first
+        if (local.size == remote.size) return;
+        // if they're different, sync the newer file across
+        if (local.mtime > remote.mtime) {
+          uploads.push(local);
         } else {
-          // compare sizes, dates
-          if (localItem.size != remoteItem.size) {
-            if (localItem.mtime > remoteItem.mtime) {
-              up.push(localItem);
-            } else {
-              down.push(remoteItem);
-            }
-          }
+          downloads.push(remote);
         }
       });
-      // check for missing local files
-      remote.forEach(function (remoteItem) {
-        var localItem = local.filter((l) => l.file == remoteItem.file).pop();
-        if (!localItem) {
-          down.push(remoteItem);
-        }
-      });
+    }
 
-      next(null, up, down);
+    console.log(`Sync status: ${downloads.length} to download, ${uploads.length} to upload`);
+
+    if (!downloads.length && !uploads.length) {
+      return console.log("No files needing sync");
+    }
+
+    // process downloads
+    var downloadFile = async function(download) {
+      console.log(`Downloading s3://${config.bucket, download.key}...`);
+      var buffer = await s3.download(config.bucket, download.key);
+      var location = path.join(localPath, download.file);
+      var dirname = path.dirname(location);
+      await fs.mkdir(dirname, { recursive: true });
+      await fs.writeFile(path.join(localPath, download.file), buffer);
     };
 
-    // get remote files
-    var pull = function (up, down, next) {
-      async.eachLimit(
-        down,
-        10,
-        function (item, callback) {
-          console.log(`Download: ${item.file}`);
-          s3.getObject(
-            {
-              Bucket: dest.bucket,
-              Key: item.key
-            },
-            function (err, data) {
-              if (err) return callback(err);
-              fs.mkdirSync(path.dirname(path.join(localSynced, item.file)), {
-                recursive: true
-              });
-              fs.writeFileSync(path.join(localSynced, item.file), data.Body);
-              callback();
-            }
-          );
-        },
-        (err) => next(err, up)
-      );
-    };
+    // batch the files
+    for (var i = 0; i < downloads.length; i += 10) {
+      var slice = downloads.slice(i, i + 10);
+      await Promise.all(slice.map(downloadFile));
+    }
 
-    // put local files
-    var push = function (up, next) {
-      async.eachLimit(
-        up,
-        10,
-        function (item, callback) {
-          console.log(`Upload: ${item.file}`);
-          var buffer = fs.readFileSync(path.join(localSynced, item.file));
-          var obj = {
-            Bucket: dest.bucket,
-            Key: path.join(remoteSynced, item.file),
-            Body: buffer,
-            ContentType: mime.getType(item.file),
-            CacheControl: "public,max-age=300",
-            ACL: "public-read"
-          };
-          if (target == "live") {
-            obj.ACL = "public-read";
-          }
-          s3.putObject(obj, callback);
-        },
-        next
-      );
-    };
+    // process uploads
+    var uploadFile = async function(upload) {
+      console.log(`Uploading ${upload.file}...`);
+      var buffer = await fs.readFile(path.join(localPath, upload.file));
+      var object = {
+        Bucket: config.bucket,
+        Key: path.posix.join(remotePath, upload.file),
+        Body: buffer,
+        ACL: "public-read",
+        ContentType: mime.getType(upload.file),
+        CacheControl: "public,max-age=120",
+      };
+      await s3.upload(object);
+    }
 
-    async.waterfall([listRemote, diff, pull, push], function (err) {
-      if (err) grunt.fail.fatal(err);
-      done();
-    });
+    for (var i = 0; i < uploads.length; i += 10) {
+      var slice = uploads.slice(i, i + 10);
+      await Promise.all(slice.map(uploadFile));
+    }
+  }
+
+  grunt.registerTask("sync", function(target = "stage") {
+    var done = this.async();
+    var config = project.s3[target];
+    var options = grunt.option.keys;
+    var direction = options.push ? "push" : options.pull ? "pull" : false;
+    sync(config, direction).then(done);
   });
-};
+}

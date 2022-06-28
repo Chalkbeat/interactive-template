@@ -5,7 +5,7 @@ var chalk = require("chalk");
 var gzip = require("zlib").gzip;
 var mime = require("mime");
 
-var { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3");
+var s3 = require("./lib/s3");
 
 var join = (...parts) => path.join(...parts).replace(/\\/g, "/");
 var formatSize = function (input) {
@@ -98,9 +98,6 @@ module.exports = function (grunt) {
         );
       }
 
-      var region = process.env.AWS_DEFAULT_REGION || "us-east-1";
-      // gets auth from env variables automatically
-      var s3 = new S3Client({ region });
       var BATCH_SIZE = 10;
 
       var uploads = findBuiltFiles();
@@ -155,7 +152,7 @@ module.exports = function (grunt) {
             }
             console.log(...args);
             if (deploy == "simulated") return;
-            return s3.send(new PutObjectCommand(putObject));
+            return s3.upload(putObject);
           });
 
           await Promise.all(puts);
