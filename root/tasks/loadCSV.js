@@ -5,8 +5,9 @@ Will use cached data if it hasn't changed since the last run.
 
 */
 
-var csv = require("csv");
+var csv = require("csv-parse");
 var path = require("path");
+var fs = require("fs").promises;
 
 module.exports = function(grunt) {
 
@@ -14,42 +15,48 @@ module.exports = function(grunt) {
 
     grunt.task.requires("state");
 
-    var files = grunt.file.expand("data/**/*.csv");
+    var done = this.async();
 
-    grunt.data.csv = {};
+    var loadCSV = async function() {
 
-    files.forEach(function(filename) {
-      var file = grunt.file.read(filename);
-      //strip out the empty lines that Excel likes to leave in.
-      file = file.replace(/\r/g, "").split("\n").filter(function(line) { return line.match(/[^,]/) }).join("\n");
-      var isKeyed = !!(file.split("\n").shift().match(/(^|,)key(,|$)/));
-      var parsed = isKeyed ? {} : [];
-      
-      var parser = csv.parse({
-        columns: true,
-        auto_parse: true
-      });
-      parser.on("data", function(line) {
-        //if "key" is a column, make this an object hash
-        if (isKeyed) {
-          var key = line.key;
-          delete line.key;
-          parsed[key] = line;
-        } else {
-          parsed.push(line);
+      var files = grunt.file.expand("data/**/*.csv");
+
+      grunt.data.csv = {};
+
+      for (var file of files) {
+        var parser = csv.parse({
+          columns: true,
+          cast: true
+        });
+        var handle = await fs.open(file);
+        var stream = handle.createReadStream();
+        stream.pipe(parser);
+        var parsed = [];
+        var keyed = false;
+        for await (var record of parser) {
+          // check to see if we've found a keyed row
+          if (record.key || keyed) {
+            // swap output to an object the first time it happens
+            if (parsed instanceof Array) {
+              parsed = {};
+              keyed = true;
+            }
+            parsed[record.key] = record;
+            delete record.key;
+          } else {
+            parsed.push(record);
+          }
         }
-      });
-      parser.on("finish", function() {
-        console.log("Finished parsing", filename);
-        var sanitized = path.basename(filename)
+        var sanitized = path.basename(file)
           .replace(".csv", "")
           .replace(/\W(\w)/g, function(_, letter) { return letter.toUpperCase() });
-        console.log("Loaded onto grunt.data as", sanitized);
+        console.log(`Loaded ${file} as grunt.data.${sanitized}`);
         grunt.data.csv[sanitized] = parsed;
-      });
-      parser.write(file);
-      parser.end();
-    });
+      }
+
+    };
+
+    loadCSV().then(done);
 
   });
 

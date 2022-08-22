@@ -118,7 +118,7 @@ module.exports = function(grunt) {
             out.push(obj);
           }
         }
-        var filename = `data/${sheet.properties.title.replace(/\s+/g, "_")}.sheet.json`;
+        var filename = `data/${sheet.properties.title.replace(/[\s\/]+/g, "_")}.sheet.json`;
         console.log(`Saving sheet to ${filename}`);
         grunt.file.write(filename, JSON.stringify(out, null, 2));
       });

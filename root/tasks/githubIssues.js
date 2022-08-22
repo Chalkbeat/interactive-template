@@ -1,6 +1,6 @@
 // creates default issues in the GitHub repo
 var https = require("https");
-var csv = require("csv");
+var csv = require("csv-parse");
 
 module.exports = function(grunt) {
 
