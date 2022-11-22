@@ -76,7 +76,7 @@ module.exports = function(grunt) {
 
     };
 
-    bundle().then(done);
+    bundle().then(done).catch(done);
 
   });
 
