@@ -12,6 +12,7 @@ module.exports = function(grunt) {
   var path = require("path");
   var npmImporter = require("./lib/npm-less");
   var { importText, importLESS } = require("./lib/rollup-plugins");
+  var cache = null;
 
   grunt.registerTask("bundle", "Build app.js using browserify", function(mode) {
     //run in dev mode unless otherwise specified
@@ -49,8 +50,11 @@ module.exports = function(grunt) {
 
         var rolled = await rollup({
           input: src,
-          plugins
+          plugins,
+          cache
         });
+
+        cache = rolled.cache;
 
         var { output } = await rolled.generate({
           name: "interactive",
