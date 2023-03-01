@@ -21,7 +21,7 @@ module.exports = function(grunt) {
         host: url.host,
         path: url.pathname,
         headers: {
-          "User-Agent": "NPR Interactive Template"
+          "User-Agent": "Chalkbeat Interactive Template"
         },
         auth
       };

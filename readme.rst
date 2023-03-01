@@ -39,7 +39,7 @@ clone this repo into it using the following command:
 
 .. code:: sh
 
-    git clone git@github.com:nprapps/interactive-template interactive
+    git clone git@github.com:chalkbeat/interactive-template interactive
 
 (We want to clone into the "interactive" folder so that we can run
 ``grunt-init interactive`` and not ``grunt-init interactive-template``.
@@ -347,7 +347,7 @@ HTML against it. So for this, we might run ``grunt docs sheets clean template
 publish:live``.
 
 Finally, on some projects, it may make sense to define a validation step that
-checks data for integrity before continuing the build process (example: `our
+checks data for integrity before continuing the build process (example: `the NPR
 liveblog rig 
 <https://github.com/nprapps/liveblog-standalone/blob/master/tasks/validate.js>`_).
 By creating this task and then adding it to the "content" meta-task, it will

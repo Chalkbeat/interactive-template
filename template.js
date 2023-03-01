@@ -1,7 +1,7 @@
 var exec = require("child_process").exec;
 var path = require("path");
 
-exports.description = "A standard starting-point for news app development from NPR."
+exports.description = "A standard starting-point for news app development from Chalkbeat."
 exports.template = function(grunt, init, done) {
   //prelims
   var here = path.basename(process.cwd());
