@@ -31,6 +31,39 @@
 @light-blue: #A1C8DA;
 @dark-blue: #1B6383;
 
+@dark-red: #AE5252;
+@red: #F77575;
+@light-red: #F1BFBF;
+
+@dark-green: #4A8B44;
+@green: #19AB76;
+@light-green: #A7DCBC;
+
+// export to custom props
+:root {
+  --darker-gray: #222222;
+  --dark-gray: #393939;
+  --teal: #178287;
+  --primary-color: var(--teal);
+  --yellow: #F4C96C;
+  --blue: #268CBA;
+  --peach: #F79C75;
+  --purple: #BD75AC;
+  --lighter-gray: #ECECEC;
+  --light-gray: #DCDCDC;
+  --gray: #828282;
+  --light-teal: #9CD1D4;
+  --dark-teal: #127479;
+  --light-yellow: #F0DFBC;
+  --dark-yellow: #AC8E4C;
+  --light-peach: #F1CEBF;
+  --dark-peach: #AE6E52;
+  --light-purple: #DBC0D4;
+  --dark-purple: #855279;
+  --light-blue: #A1C8DA;
+  --dark-blue: #1B6383;
+}
+
 // Font stacks
 @sans: "Barlow Condensed", Helvetica, Arial, sans-serif;
 @serif: "IBM Plex Serif", Times, serif;
@@ -38,6 +71,7 @@
 // Media queries
 @mobile: ~"(max-width: 600px)";
 @tablet: ~"(max-width: 1100px)";
+@desktop: ~"(min-width: 601px)";
 
 //defensive coding
 * {

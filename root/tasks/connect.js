@@ -49,6 +49,11 @@ module.exports = function(grunt) {
               var syncedFolder = "./src/assets/synced/";
               if (isSynced.test(href)) {
                 var file = href.replace(isSynced, "");
+                try {
+                  fs.statSync(path.join(syncedFolder, file));
+                } catch (err) {
+                  return response.writeHead(404).end();
+                }
                 var stream = fs.createReadStream(path.join(syncedFolder, file));
                 stream.pipe(response);
                 return;

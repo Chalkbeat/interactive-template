@@ -4,6 +4,7 @@ Build a bundled app.js file using browserify
 module.exports = function(grunt) {
 
   var { rollup } = require("rollup");
+  var terser = require("@rollup/plugin-terser");
   var { nodeResolve } = require("@rollup/plugin-node-resolve");
   var commonJS = require("@rollup/plugin-commonjs");
   var { babel }  = require("@rollup/plugin-babel");
@@ -39,7 +40,8 @@ module.exports = function(grunt) {
         presets: [
           "@babel/preset-env",
         ]
-      })
+      }),
+      terser(),
     ];
 
     grunt.file.mkdir("build");

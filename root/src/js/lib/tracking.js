@@ -9,18 +9,11 @@ var a = document.createElement("a");
 
 var slug = window.location.pathname.replace(/^\/|\/$/g, "");
 
-var track = function(eventAction, eventLabel, eventValue) {
-  var event = {
-    eventAction,
-    eventLabel,
-    eventValue,
-    hitType: "event",
-    eventCategory: "projects-" + slug
-  }
+var track = function(name, params = {}) {
+  
+  console.log(`Tracking: ${name}`, params);
 
-  console.log(`Tracking: ${eventAction} / ${eventLabel} / ${eventValue}`);
-
-  if (window.ga) ga("send", event);
+  if (window.gtag) gtag("event", name, params);
 };
 
 module.exports = track;
