@@ -44,7 +44,7 @@ module.exports = function(grunt) {
 
     // override if the push/pull flags are set
     if (direction) {
-      if (direction = "push") {
+      if ((direction == "push")) {
         uploads = localFiles;
       } else {
         downloads = remoteFiles;
@@ -116,8 +116,16 @@ module.exports = function(grunt) {
   grunt.registerTask("sync", function(target = "stage") {
     var done = this.async();
     var config = project.s3[target];
-    var options = grunt.option.keys;
-    var direction = options.push ? "push" : options.pull ? "pull" : false;
+    var options = grunt.option.keys();
+    var direction = options.includes("push") ? "push" : options.includes("pull") ? "pull" : false;
+
+    if (target == "live" && !project.production) {
+      var checklist = grunt.file.read("tasks/checklist.txt");
+      grunt.fail.fatal(checklist);
+    } else {
+      config = project.s3[target];
+    }
+
     sync(config, direction).then(done);
   });
 }
