@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.81.0",
-    "@babel/core": "^7.4.3",
+    "@babel/core": "^7.27.1",
     "@babel/preset-env": "^7.23.8",
     "@nprapps/betty": "^1.0.9",
     "@nprapps/sidechain": "^1.1.4",
@@ -23,7 +23,7 @@
     "dot": "^1.1.2",
     "googleapis": "^84.0.0",
     "grunt": "^1.0.4",
-    "grunt-contrib-connect": "^4.0.0",
+    "grunt-contrib-connect": "^5.0.1",
     "grunt-contrib-watch": "^1.0.0",
     "less": "^3.9.0",
     "mime": "^2.4.2",

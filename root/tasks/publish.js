@@ -28,7 +28,6 @@ var cut = (str, max) => {
 
 var gzippable = new Set([
   "js",
-  "html",
   "json",
   "map",
   "css",
