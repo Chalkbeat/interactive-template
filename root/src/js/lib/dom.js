@@ -1,4 +1,4 @@
-module.exports = function(tagName, attributes = {}, children = []) {
+export default function h(tagName, attributes = {}, children = []) {
   var parser = /^([^.]+)(\.[\.\w-]+)?/gi;
   var [_, tag, classes] = parser.exec(tagName);
   var element = document.createElement(tag);

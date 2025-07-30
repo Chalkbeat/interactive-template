@@ -35,13 +35,20 @@ module.exports = function(grunt) {
         requireReturnsDefault: "auto"
       }),
       babel({
-        targets: { browsers: ["safari >= 14"]},
+        targets: {
+          ios: "14",
+          firefox: "120",
+          chrome: "125"
+        },
         babelHelpers: "bundled",
         presets: [
           "@babel/preset-env",
         ]
       }),
-      terser(),
+      terser({
+        mangle: false,
+        compress: false
+      })
     ];
 
     grunt.file.mkdir("build");
@@ -60,7 +67,7 @@ module.exports = function(grunt) {
 
         var { output } = await rolled.generate({
           name: "interactive",
-          format: "umd",
+          format: "es",
           sourcemap: true,
           interop: "default"
         });

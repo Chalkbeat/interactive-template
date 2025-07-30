@@ -1,5 +1,5 @@
 // add to the page with <newsletter-signup></newsletter-signup>
-var m = require("./dom");
+import m from "./dom.js";
 
 const ENDPOINT = "https://newsletters-arcxp.civic-news-company-it.workers.dev";
 const RECAP_KEY = "6LckrOMmAAAAAKSCiwGzwdj6HN3FaT2LmVDtr1uf";
@@ -9,7 +9,7 @@ var defaultData = {
   interest_ids: ["9907031392"]
 };
 
-class NewsletterSignup extends HTMLElement {
+export class NewsletterSignup extends HTMLElement {
 
   connectedCallback() {
     // put contents in the light DOM for easier styling

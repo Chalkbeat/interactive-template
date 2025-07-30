@@ -1,4 +1,4 @@
-module.exports = function(element, mutate) {
+export default function flip(element, mutate) {
   var first = element.getBoundingClientRect();
   
   mutate();

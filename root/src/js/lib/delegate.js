@@ -1,4 +1,4 @@
-var delegate = function(root, event, selector, callback) {
+export default function delegate(root, event, selector, callback) {
   root.addEventListener(event, function(e) {
     var matching = e.target.closest(selector);
     if (matching && root.contains(matching)) {
@@ -6,5 +6,3 @@ var delegate = function(root, event, selector, callback) {
     }
   });
 };
-
-module.exports = delegate;

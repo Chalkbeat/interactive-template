@@ -1,4 +1,4 @@
-module.exports = function(fn, duration = 100) {
+export default function debounce(fn, duration = 100) {
   var timeout;
 
   return function(...args) {
