@@ -9,7 +9,7 @@ check for existing data to merge--it does a fresh pull every time.
 var project = require("../project.json");
 var os = require("os");
 var path = require("path");
-var { google } = require("googleapis");
+var google = require("@googleapis/sheets");
 var api = google.sheets("v4");
 
 var { authenticate } = require("./googleAuth");

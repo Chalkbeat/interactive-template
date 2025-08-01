@@ -1,4 +1,4 @@
-var { google } = require("googleapis");
+var google = require("@googleapis/sheets");
 var chalk = require("chalk");
 var opn = require("opn");
 

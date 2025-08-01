@@ -1,4 +1,4 @@
-var { google } = require("googleapis");
+var google = require("@googleapis/docs");
 var os = require("os");
 var path = require("path");
 var { authenticate } = require("./googleAuth");
